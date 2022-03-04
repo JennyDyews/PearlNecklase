@@ -36,4 +36,34 @@ else
     Console.WriteLine($"Pearl found in position {idx}");
 }
 
+	
+
+using (FileStream fs = File.Create(fname("Necklace.txt")))
+using (TextWriter writer = new StreamWriter(fs))
+{
+    var nl = string.Join("", writer.NewLine.Select(c => $"0x{(int)c:X2} "));
+    Console.WriteLine($"Newline is {nl} ");
+
+	writer.WriteLine(necklace);
+	necklace.Sort();
+    writer.WriteLine(necklace);
+
+}
+
+using (FileStream fs = File.OpenRead(fname("Necklace.txt")))
+using (TextReader reader = new StreamReader(fs))
+{
+	Console.WriteLine(reader.ReadLine());       // Line1
+	
+}
+
+
+static string fname(string name)
+{
+	var documentPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+	documentPath = Path.Combine(documentPath, "Necklace");
+	if (!Directory.Exists(documentPath)) Directory.CreateDirectory(documentPath);
+	return Path.Combine(documentPath, name);
+}
+Console.WriteLine(fname("Necklace"));
 
